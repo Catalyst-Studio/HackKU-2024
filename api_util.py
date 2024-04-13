@@ -17,7 +17,7 @@ def total_hours_sort(dictlist: list):
         """
     total = 0
     for event in dictlist:
-        total += event["hours"]
+        total += int(event["hours"])
     return total
 
 def sorted_future_events(dictlist: list):

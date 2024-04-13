@@ -25,11 +25,6 @@ async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
-@app.get("/dashboard")
-async def dashboard(request: Request):
-    return templates.TemplateResponse("dashboard.html", {"request": request})
-
-
 @app.get("/input")
 async def input(request: Request):
     return templates.TemplateResponse("input.html", {"request": request})
