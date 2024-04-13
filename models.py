@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 base = declarative_base()
 
 
-# Example model. Delete when actually making program
+# a class that represents a user in the database
 class User(base):
     """
         This class represents a user in the database.
