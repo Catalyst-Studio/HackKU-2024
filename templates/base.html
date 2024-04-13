@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" data-bs-core="modern" id="htmlRoot">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Settings - Catalyst Studios</title>
+        <link rel="stylesheet" href="/static/fontawesome.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/halfmoon@2.0.1/css/halfmoon.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/halfmoon@2.0.1/css/cores/halfmoon.modern.css" rel="stylesheet" integrity="sha256-DD6elX+jPmbFYPsGvzodUv2+9FHkxHlVtQi0/RJVULs=" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+        <script type="text/javascript">
+            /*!
+             * Color mode toggler for Bootstrap's docs (https://getbootstrap.com/)
+             * Copyright 2011-2023 The Bootstrap Authors
+             * Licensed under the Creative Commons Attribution 3.0 Unported License.
+             */
+
+            (() => {
+              "use strict";
+
+              const getStoredTheme = () => localStorage.getItem("theme");
+              const setStoredTheme = (theme) => localStorage.setItem("theme", theme);
+
+              const getPreferredTheme = () => {
+                const storedTheme = getStoredTheme();
+                if (storedTheme) {
+                  return storedTheme;
+                }
+
+                return window.matchMedia("(prefers-color-scheme: dark)").matches
+                  ? "dark"
+                  : "light";
+              };
+
+              const setTheme = (theme) => {
+                if (
+                  theme === "auto" &&
+                  window.matchMedia("(prefers-color-scheme: dark)").matches
+                ) {
+                  document.documentElement.setAttribute("data-bs-theme", "dark");
+                } else {
+                  document.documentElement.setAttribute("data-bs-theme", theme);
+                }
+              };
+
+              setTheme(getPreferredTheme());
+
+              const showActiveTheme = (theme, focus = false) => {
+                const themeSwitcher = document.querySelector("#bd-theme");
+
+                if (!themeSwitcher) {
+                  return;
+                }
+
+                const themeSwitcherText = document.querySelector("#bd-theme-text");
+                const activeThemeIcon = document.querySelector(".theme-icon-active use");
+                const btnToActive = document.querySelector(
+                  `[data-bs-theme-value="${theme}"]`
+                );
+                const svgOfActiveBtn = btnToActive
+                  .querySelector("svg use")
+                  .getAttribute("href");
+
+                document.querySelectorAll("[data-bs-theme-value]").forEach((element) => {
+                  element.classList.remove("active");
+                  element.setAttribute("aria-pressed", "false");
+                });
+
+                btnToActive.classList.add("active");
+                btnToActive.setAttribute("aria-pressed", "true");
+                activeThemeIcon.setAttribute("href", svgOfActiveBtn);
+                const themeSwitcherLabel = `${themeSwitcherText.textContent} (${btnToActive.dataset.bsThemeValue})`;
+                themeSwitcher.setAttribute("aria-label", themeSwitcherLabel);
+
+                if (focus) {
+                  themeSwitcher.focus();
+                }
+              };
+
+              window
+                .matchMedia("(prefers-color-scheme: dark)")
+                .addEventListener("change", () => {
+                  const storedTheme = getStoredTheme();
+                  if (storedTheme !== "light" && storedTheme !== "dark") {
+                    setTheme(getPreferredTheme());
+                  }
+                });
+
+              window.addEventListener("DOMContentLoaded", () => {
+                showActiveTheme(getPreferredTheme());
+
+                document.querySelectorAll("[data-bs-theme-value]").forEach((toggle) => {
+                  toggle.addEventListener("click", () => {
+                    const theme = toggle.getAttribute("data-bs-theme-value");
+                    setStoredTheme(theme);
+                    setTheme(theme);
+                    showActiveTheme(theme, true);
+                  });
+                });
+              });
+            })();
+
+        </script>
+        <style type="text/css">
+            /* Custom class to show content in light mode only */
+
+            html[data-bs-theme='light'] .show-in-light-mode {
+                display: initial; /* or use 'flex', 'inline', etc., as needed */
+            }
+            html[data-bs-theme='light'] .show-in-dark-mode {
+                display: none !important;
+            }
+
+            html[data-bs-theme='dark'] .show-in-light-mode {
+                display: none !important;
+            }
+            html[data-bs-theme='dark'] .show-in-dark-mode {
+                display: initial; /* or use 'flex', 'inline', etc., as needed */
+            }
+            .dark-mode-toggler {
+                position: fixed;
+                right: 2rem;
+                bottom: 2rem;
+                z-index: 1000;
+            }
+        </style>
+        {% block head %}
+        {% endblock %}
+    </head>
+    <body>
+        {% include 'nav-bar.html' %}
+        {% include 'side-bar.html' %}
+        {% block content %}{% endblock %}
+        {% include 'darkmode_button.html' %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script><script>
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        </script>
+    </body>
+</html>

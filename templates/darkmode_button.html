@@ -1,0 +1,30 @@
+<button class="btn btn-lg dark-mode-toggler btn-secondary" id="dark-mode-toggle" aria-label="Dark-mode, Light-mode toggle"><i class="fa-regular fa-sun-bright"></i></button>
+
+<script>
+    const setStoredTheme = (theme) => localStorage.setItem("theme", theme);
+    const setTheme = (theme) => {
+        if (
+            theme === "auto" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+        ) {
+            document.documentElement.setAttribute("data-bs-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-bs-theme", theme);
+        }
+    };
+
+    let button = document.getElementById("dark-mode-toggle")
+    button.addEventListener('click', function () {
+        let html  = document.getElementsByTagName("html").item(0)
+        let current_mode = html.getAttribute("data-bs-theme")
+        if (current_mode !== null) {
+            if (current_mode === "dark") {
+                setStoredTheme("light")
+                setTheme("light")
+            } else if (current_mode === "light") {
+                setStoredTheme("dark")
+                setTheme("dark")
+            }
+        }
+    })
+</script>
