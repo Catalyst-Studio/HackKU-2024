@@ -29,17 +29,44 @@ def store_event(user: User, location: str, hours: int, description: str, date: s
     data = {
         "location": location,
         "hours": hours,
+        "datetime": date + " " + time,
         "description": description,
         "affiliation": affiliation
     }
     collection = events[str(user.id)]
     collection.insert_one(data)
-    #ADD THE DATETIME
 
 
 def get_events(user: User):
     return events[str(user.id)].find()
 
 
-def store_location(name: str, address: str, city: str, state: str):
+def store_location(name: str, address: str, city: str, state: str, zipcode: int):
+    data = {
+        "name": name,
+        "address": address,
+        "city": city,
+        "state": state,
+        "zipcode": zipcode
+    }
+    collection = locations["locations"]
+    collection.insert_one(data)
 
+
+def get_locations():
+    collection = locations["locations"]
+    return collection.find()
+
+
+def store_future_event(user: User, location: str, date: str, time: str, affiliation: str = None):
+    data = {
+        "location": location,
+        "datetime": date + " " + time,
+        "affiliation": affiliation
+    }
+    collection = future_events[str(user.id)]
+    collection.insert_one(data)
+
+
+def get_future_events(user: User):
+    return future_events[str(user.id)].find()
