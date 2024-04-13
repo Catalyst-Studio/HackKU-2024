@@ -3,7 +3,7 @@ from pymongo.mongo_client import MongoClient
 from sqlalchemy.orm import sessionmaker
 from models import base, User
 
-uri = "mongodb+srv://admin:47ezDKGiJ5xiHJQF@hack-ku.uwg8jse.mongodb.net/?retryWrites=true&w=majority&appName=Hack-KU"
+uri = "mongodb+srv://admin:BkyzC1q3CBFgNn0i@hack-ku.uwg8jse.mongodb.net/?retryWrites=true&w=majority&appName=Hack-KU"
 
 # Create a new client and connect to the server
 client = MongoClient(uri)
