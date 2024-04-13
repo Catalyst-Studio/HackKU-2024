@@ -34,6 +34,7 @@ def store_event(user: User, location: str, hours: int, description: str, date: s
     }
     collection = events[str(user.id)]
     collection.insert_one(data)
+    #ADD THE DATETIME
 
 
 def get_events(user: User):

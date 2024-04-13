@@ -10,6 +10,15 @@ from models import User
 
 
 async def get_user(email):
+    """
+        Get a user by their email address.
+
+        Args:
+            email (str): The email address of the user.
+
+        Returns:
+            Optional[User]: The user with the matching email address, or None if no user was found.
+        """
     session = session_maker()
     user = session.query(User).filter_by(email=email).first()
     return user
@@ -25,6 +34,18 @@ async def load_user(user_email: str):
 
 
 def make_user(first_name, last_name, email, password):
+    """
+        Creates a new user in the database.
+
+        Args:
+            first_name (str): The first name of the user.
+            last_name (str): The last name of the user.
+            email (str): The email address of the user.
+            password (str): The password of the user.
+
+        Returns:
+            User: The newly created user.
+        """
     user = User(first_name=first_name, last_name=last_name, email=email, password=password)
     session = session_maker()
     session.add(user)
@@ -34,6 +55,16 @@ def make_user(first_name, last_name, email, password):
 
 
 def verify_user(email, password):
+    """
+        Verify a user's login credentials.
+
+        Args:
+            email (str): The email address of the user.
+            password (str): The password of the user.
+
+        Returns:
+            bool: True if the credentials are valid, False otherwise.
+        """
     session = session_maker()
     user = session.query(User).filter_by(email=email).first()
     if user is not None:

@@ -47,6 +47,18 @@ async def signup(request: Request):
 
 @app.post("/signup")
 async def signup_user(request: Request, first_name=Form(), last_name=Form(), email=Form(), password=Form()):
+    """
+    This function creates a new user in the system.
+
+    Args:
+        first_name (str): The first name of the user.
+        last_name (str): The last name of the user.
+        email (str): The email of the user.
+        password (str): The password of the user.
+
+    Returns:
+        starlette.responses.RedirectResponse: A redirect response to the home page.
+    """
     users.make_user(first_name, last_name, email, password)
     token = users.manager.create_access_token(data=dict(sub=email))
     response = RedirectResponse("/home")
@@ -61,6 +73,19 @@ async def login(request: Request):
 
 @app.post("/login")
 async def login_user(request: Request, email=Form(), password=Form()):
+    """
+        This function authenticates a user using their email and password.
+
+        Args:
+            email (str): The email of the user.
+            password (str): The password of the user.
+
+        Returns:
+            starlette.responses.RedirectResponse: A redirect response to the home page if the user is authenticated.
+
+        Raises:
+            HTTPException: A HTTP exception with status code 401 if the user is not authenticated.
+        """
     if users.verify_user(email, password):
         token = users.manager.create_access_token(data=dict(sub=email))
         response = RedirectResponse("/home")

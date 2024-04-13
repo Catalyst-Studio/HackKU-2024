@@ -15,11 +15,6 @@ def create_new_UUID():
 api_router = APIRouter(prefix="/api")
 
 
-@api_router.get("/status")
-async def status_testa(test_a: int = 0):
-    return {"hello world": test_a * 2}
-
-
 @api_router.get("/dashboard")
 async def dashboard_getAll(user=Depends(manager)):
     """
