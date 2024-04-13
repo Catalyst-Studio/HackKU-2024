@@ -48,3 +48,21 @@ async def dashboard_getAll(user=Depends(manager)):
 async def input_create(location, hours, description, affiliation=None, user=Depends(manager)):
     database.store_event(user, location, hours, description, affiliation)
 
+@api_router.get("/get_all_events")
+async def get_all_events(user=Depends(manager)):
+    """
+        This function returns all events for the given user.
+
+        Args:
+            user (User): the user for which to retrieve the events
+
+        Returns:
+            list: a list of dictionaries containing the event information for the given user
+        """
+    events = database.get_events(user)
+    event_store = []
+    for event in events:
+        event = dict(event)
+        event.pop("_id")
+        event_store.append(event)
+    return event_store
