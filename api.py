@@ -8,10 +8,6 @@ import api_util
 from models import User
 
 
-def create_new_UUID():
-    return str(uuid.uuid4())
-
-
 api_router = APIRouter(prefix="/api")
 
 
