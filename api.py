@@ -65,7 +65,7 @@ async def input_create(location, hours: int, description, date: str, time: str, 
         database.store_event(user, location, hours, description, date, time, affiliation)
         return {
             "success": True,
-            "redirect_url": "/view-events"
+            "redirect_url": "/home"
         }
     except Exception as e:
         return {
