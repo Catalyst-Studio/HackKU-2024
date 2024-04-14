@@ -43,10 +43,10 @@ Restart your computer or browser
 
 Contributors names and contact info
 
-* Lawrence Burton III - (913) 475-0848
-* Cody Schwindt - (913) 747-5528
-* Aiden Hayes - (816) 401-3975
-* Maddox Dorland (913) 901-7153
+* Lawrence B. III - (913) 475-0848
+* Cody S. - (913) 747-5528
+* Aiden H. - (816) 401-3975
+* Maddox D. (913) 901-7153
 
 ## Version History
 
@@ -58,7 +58,7 @@ Contributors names and contact info
 
 ## License
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+This project is licensed under the CC0 1.0 Universal License - see the LICENSE.md file for details
 
 ## Acknowledgments
 
@@ -68,3 +68,21 @@ Inspiration, code snippets, etc.
 * [dbader](https://github.com/dbader/readme-template)
 * [zenorocha](https://gist.github.com/zenorocha/4526327)
 * [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+
+## Cloning from Source
+
+Want to run your own instance of this website?
+
+First, run these commands:
+
+```
+git clone https://github.com/Catalyst-Studio/HackKU-2024.git
+cd /HackKU-2024
+python -m pip install -r requirements.txt
+```
+
+Then, to run the app:
+
+```
+python -m uvicorm main:app
+```

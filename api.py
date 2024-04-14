@@ -108,7 +108,7 @@ async def get_all_locations(user=Depends(manager)):
 
 
 @api_router.get("/add-location")
-async def add_loc(user: User, name: str, address: str, city: str, state: str, zipcode: int):
+async def add_loc(name: str, address: str, city: str, state: str, zipcode: int, user=Depends(manager)):
     """
         This function adds a new location to the system.
 
