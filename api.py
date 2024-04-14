@@ -112,7 +112,7 @@ async def get_all_locations(user=Depends(manager)):
 
 
 @api_router.get("/add-location")
-async def add_loc(name: str, address: str, city: str, state: str, zipcode: int):
+async def add_loc(user: User, name: str, address: str, city: str, state: str, zipcode: int):
     """
         This function adds a new location to the system.
 
@@ -126,8 +126,8 @@ async def add_loc(name: str, address: str, city: str, state: str, zipcode: int):
         Returns:
             list: a list of dictionaries containing the locations in the system
         """
-    database.store_location(name, address, city, state, zipcode)
-    locations = database.get_locations()
+    database.store_location(user, name, address, city, state, zipcode)
+    locations = database.get_locations(user)
     location_store = []
     # remove IDs from each
     for location in locations:
