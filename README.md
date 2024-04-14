@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://codereview.catalyst-studios.cc/api/project_badges/measure?project=Catalyst-Studio_HackKU-2024_AY7bA9D3LriLGdlK6uBx&metric=alert_status&token=sqb_d74d202d7f66d0f169cd20148035ee1d48692e0b)](https://codereview.catalyst-studios.cc/dashboard?id=Catalyst-Studio_HackKU-2024_AY7bA9D3LriLGdlK6uBx)
+---
 #   Project: Time Well Spent
 
 ## Description
