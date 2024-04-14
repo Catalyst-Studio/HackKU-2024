@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="card m-5" style="width: 40rem; height: auto;">
+    <div class="d-flex">
+        <div class="card m-5" style="width: 40rem; height: auto;">
         <div>
             <h2 class="m-4">Add an Event</h2>
             <input type="text" class="form-control mt-3 mb-3 me-4 ms-4 form-group-lg" placeholder="Search for a location" style="width:92%;">
@@ -40,6 +41,10 @@
             <button class="btn btn-primary mt-3 mb-4 me-4 ms-4" type="submit" style="float: right;" onclick="add_event()">Submit</button>
         </div>
     </div>
+    <div class="card m-5" style="width: 40rem; height: auto;">
+
+    </div>
+    </div>
 {% endblock %}
 
 {% block scripts %}
@@ -66,5 +71,86 @@
         })
         .catch(error => console.error("Error:", error));
     }
+
+    function renderForm() {
+        const container = document.createElement('div');
+
+        const addLocationHeader = document.createElement('h2');
+        addLocationHeader.classList.add('m-4');
+        addLocationHeader.textContent = 'Add a Location';
+        container.appendChild(addLocationHeader);
+
+        const locationInput = createInput('text', 'Name of Location', 'Location', '92%');
+        container.appendChild(locationInput);
+
+        const addressInput = createInput('text', 'Street Address', 'Address', '92%');
+        container.appendChild(addressInput);
+
+        const cityNameInput = createInput('text', 'City Name', 'City Name', '67%');
+        container.appendChild(cityNameInput);
+
+        const stateSelect = document.createElement('select');
+        stateSelect.classList.add('form-select', 'mt-5', 'mb-5', 'me-4', 'ms-4', 'form-control-lg');
+        stateSelect.style.width = '45%';
+        stateSelect.setAttribute('id', 'state');
+        stateSelect.setAttribute('aria-label', 'state');
+
+        const defaultOption = document.createElement('option');
+        defaultOption.setAttribute('disabled', true);
+        defaultOption.setAttribute('selected', true);
+        defaultOption.textContent = 'Select State';
+        stateSelect.appendChild(defaultOption);
+
+        const states = [
+            "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
+            "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
+            "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+            "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico",
+            "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania",
+            "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
+            "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+        ];
+
+        states.forEach(stateName => {
+            const option = document.createElement('option');
+            option.setAttribute('value', stateName);
+            option.classList.add('form-control-lg');
+            option.textContent = stateName;
+            stateSelect.appendChild(option);
+        });
+
+        container.appendChild(stateSelect);
+
+        const zipCodeInput = createInput('number', 'Zip Code', 'Zip Code', '45%');
+        container.appendChild(zipCodeInput);
+
+        const submitButton = document.createElement('button');
+        submitButton.classList.add('btn', 'btn-primary', 'mt-3', 'mb-4', 'me-4', 'ms-4');
+        submitButton.setAttribute('type', 'submit');
+        submitButton.setAttribute('style', 'float: right;');
+        submitButton.textContent = 'Submit';
+        submitButton.onclick = add_event;
+        container.appendChild(submitButton);
+
+        document.getElementById("new-location-form").append(container)
+    }
+
+    function createInput(type, placeholder, ariaLabel, width) {
+        const input = document.createElement('input');
+        input.setAttribute('type', type);
+        input.setAttribute('placeholder', placeholder);
+        input.setAttribute('aria-label', ariaLabel);
+        input.classList.add('form-control', 'mt-5', 'mb-5', 'me-4', 'ms-4', 'form-group-lg');
+        input.style.width = width;
+        return input;
+    }
+
+    function add_event() {
+
+    }
+
+// Call the function to render the form
+renderForm();
+
     </script>
 {% endblock %}
