@@ -43,10 +43,10 @@ Restart your computer or browser
 
 Contributors names and contact info
 
-* Lawrence Burton III - (913) 475-0848
-* Cody Schwindt - (913) 747-5528
-* Aiden Hayes - (816) 401-3975
-* Maddox Dorland (913) 901-7153
+* Lawrence B. III - (913) 475-0848
+* Cody S. - (913) 747-5528
+* Aiden H. - (816) 401-3975
+* Maddox D. (913) 901-7153
 
 ## Version History
 
