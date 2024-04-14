@@ -120,6 +120,7 @@ async def add_loc(user: User, name: str, address: str, city: str, state: str, zi
             city (str): the city of the location
             state (str): the state of the location
             zipcode (int): the zipcode of the location
+            user (User): the user for which to add the location
 
         Returns:
             list: a list of dictionaries containing the locations in the system
