@@ -85,8 +85,8 @@ def store_location(user: User, name: str, address: str, city: str, state: str, z
 
 
 def get_locations(user: User):
-    collection = locations["locations"]
-    return collection[str(user.id)].find()
+    collection = locations[str(user.id)]
+    return collection.find()
 
 
 def store_future_event(user: User, location: str, date: str, time: str, affiliation: str = None):

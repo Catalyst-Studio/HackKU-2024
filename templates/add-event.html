@@ -5,19 +5,21 @@
         <div class="card m-5" style="width: 40rem; height: auto;">
         <div>
             <h2 class="m-4">Add an Event</h2>
-            <input type="text" class="form-control mt-3 mb-3 me-4 ms-4 form-group-lg" placeholder="Search for a location" style="width:92%;" aria-label="Search for a location">
             <div style="overflow: scroll; height: 13rem">
+                <button type="button" class="btn btn-primary ms-4" onclick="renderForm()">Add a location +</button>
                 <table class="table mt-3 mb-3 me-4 ms-4 table-borderless" style="width: 70%">
-                    <caption>All of your locations</caption>
                     <thead>
                         <tr>
                             <th scope="col">Location Name</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><button class="btn btn-secondary" onclick="vars.location = 1">Location 1</button></td>
-                        </tr>
+                        {% for location in locations %}
+                            <tr>
+                                <td><button class="btn btn-secondary" onclick="vars.location = '{{ location['id'] }}'">
+                                    {{ location['name'] }}</button></td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -47,7 +49,7 @@
             <button class="btn btn-primary mt-3 mb-4 me-4 ms-4" type="submit" style="float: right;" onclick="add_event()">Submit</button>
         </div>
     </div>
-    <div class="card m-5" style="width: 40rem; height: auto;">
+    <div class="card m-5" style="width: 40rem; height: auto;" id="new-location-form">
 
     </div>
     </div>
@@ -87,17 +89,21 @@
         container.appendChild(addLocationHeader);
 
         const locationInput = createInput('text', 'Name of Location', 'Location', '92%');
+        locationInput.setAttribute("id", "location-name")
         container.appendChild(locationInput);
 
         const addressInput = createInput('text', 'Street Address', 'Address', '92%');
+        addressInput.setAttribute("id", "street-address")
         container.appendChild(addressInput);
 
         const cityNameInput = createInput('text', 'City Name', 'City Name', '67%');
+        cityNameInput.setAttribute("id", "city-name")
         container.appendChild(cityNameInput);
 
         const stateSelect = document.createElement('select');
         stateSelect.classList.add('form-select', 'mt-5', 'mb-5', 'me-4', 'ms-4', 'form-control-lg');
         stateSelect.style.width = '45%';
+        stateSelect.setAttribute('id','state');
         stateSelect.setAttribute('id', 'state');
         stateSelect.setAttribute('aria-label', 'state');
 
@@ -128,6 +134,7 @@
         container.appendChild(stateSelect);
 
         const zipCodeInput = createInput('number', 'Zip Code', 'Zip Code', '45%');
+        zipCodeInput.setAttribute("id", "zip-code")
         container.appendChild(zipCodeInput);
 
         const submitButton = document.createElement('button');
@@ -135,7 +142,7 @@
         submitButton.setAttribute('type', 'submit');
         submitButton.setAttribute('style', 'float: right;');
         submitButton.textContent = 'Submit';
-        submitButton.onclick = add_event;
+        submitButton.onclick = add_location;
         container.appendChild(submitButton);
 
         document.getElementById("new-location-form").append(container)
@@ -151,12 +158,26 @@
         return input;
     }
 
-    function add_event() {
-
+    function add_location() {
+        let location_name = document.getElementById("location-name").value
+        let street_address = document.getElementById("street-address").value
+        let city_name = document.getElementById("city-name").value
+        let state = document.getElementById("state").value
+        let zip_code = document.getElementById("zip-code").value
+        fetch("/api/add-location?name=" + location_name + "&address=" + street_address + "&city=" + city_name + "&state=" + state + "&zipcode=" + zip_code, {
+            credentials: "same-origin",
+            method: "POST"
+        })
+       .then(response => response.json()).then(data => {
+            if (data.success === true) {
+                const redirectUrl = data.redirect_url;
+                window.location.href = redirectUrl;
+            } else {
+                console.log(data.error);
+            }
+        })
     }
 
-// Call the function to render the form
-renderForm();
 
     </script>
 {% endblock %}

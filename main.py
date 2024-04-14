@@ -6,6 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi_login import LoginManager
 from starlette.responses import RedirectResponse
 
+import api_util
 import database
 import users
 import api
@@ -21,34 +22,23 @@ templates = Jinja2Templates("templates")
 
 # Rendering Pages
 @app.get("/")
-@app.get("/index")
 async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
-@app.get("/input")
-async def input(request: Request):
-    return templates.TemplateResponse("input.html", {"request": request})
-
-
 @app.get("/home")
-async def home(request: Request):
-    return templates.TemplateResponse("home.html", {"request": request})
-
-
-@app.get("/add-event")
-async def add_event(request: Request):
-    return templates.TemplateResponse("add-event.html", {"request": request})
-
-
-@app.get("/view-events")
-async def view_events(request: Request, user=Depends(users.manager)):
+async def home(request: Request, user=Depends(users.manager)):
     events = database.get_events(user)
     return templates.TemplateResponse("view-events.html", {"request": request, "events": events})
 
 
+@app.get("/add-event")
+async def add_event(request: Request, user=Depends(users.manager)):
+    return templates.TemplateResponse("add-event.html", {"request": request, "locations": database.get_locations(user)})
+
+
 @app.get("/export-event")
-async def export_event(request: Request):
+async def export_event(request: Request, user=Depends(users.manager)):
     return templates.TemplateResponse("export-event.html", {"request": request})
 
 

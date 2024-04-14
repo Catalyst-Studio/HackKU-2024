@@ -1,10 +1,16 @@
+import datetime
+from io import BytesIO
 from fastapi import Depends
 from fastapi.routing import APIRouter
+from fastapi.responses import StreamingResponse
+import config
 import database
 from users import manager
 import api_util
 from models import User
-
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 
 api_router = APIRouter(prefix="/api")
 
@@ -38,7 +44,8 @@ async def dashboard_getAll(user=Depends(manager)):
 
 # create an event
 @api_router.post("/submit-event")
-async def input_create(location, hours: int, description, date: str, time: str, affiliation=None, user=Depends(manager)):
+async def input_create(location, hours: int, description, date: str, time: str, affiliation=None,
+                       user=Depends(manager)):
     """
     This function creates a new event for the given user.
 
@@ -107,7 +114,7 @@ async def get_all_locations(user=Depends(manager)):
     return location_store
 
 
-@api_router.get("/add-location")
+@api_router.post("/add-location")
 async def add_loc(name: str, address: str, city: str, state: str, zipcode: int, user=Depends(manager)):
     """
         This function adds a new location to the system.
@@ -123,12 +130,14 @@ async def add_loc(name: str, address: str, city: str, state: str, zipcode: int, 
         Returns:
             list: a list of dictionaries containing the locations in the system
         """
-    database.store_location(user, name, address, city, state, zipcode)
-    locations = database.get_locations(user)
-    location_store = []
-    # remove IDs from each
-    for location in locations:
-        location = dict(location)
-        location.pop("_id")
-        location_store.append(location)
-    return location_store
+    try:
+        database.store_location(user, name, address, city, state, zipcode)
+        return {
+            "success": True,
+            "redirect_url": "/add-event"
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "error": str(e)
+        }
