@@ -42,70 +42,7 @@
         </div>
     </div>
     <div class="card m-5" style="width: 40rem; height: auto;">
-        <div>
-            <h2 class="m-4">Add a Location</h2>
-            <input type="text" class="form-control mt-5 mb-5 me-4 ms-4 form-group-lg" placeholder="Name of Location" style="width:92%;" aria-label="Location">
-            <input type="text" class="form-control mt-5 mb-5 me-4 ms-4 form-group-lg" placeholder="Street Address" style="width:92%;" aria-label="Address">
-            <input type="text" class="form-control mt-5 mb-5 me-4 ms-4 form-group-lg" placeholder="City Name" style="width:67%;" aria-label="City Name">
-            <select class="form-select mt-5 mb-5 me-4 ms-4 form-control-lg" id="state" style="width: 45%;" aria-label="state">
-                <option selected disabled class="form-control-lg">Select State</option>
-                <option value="Alabama" class="form-control-lg">Alabama</option>
-                <option value="Alaska" class="form-control-lg">Alaska</option>
-                <option value="Arizona" class="form-control-lg">Arizona</option>
-                <option value="Arkansas" class="form-control-lg">Arkansas</option>
-                <option value="California" class="form-control-lg">California</option>
-                <option value="Colorado" class="form-control-lg">Colorado</option>
-                <option value="Connecticut" class="form-control-lg">Connecticut</option>
-                <option value="Delaware" class="form-control-lg">Delaware</option>
-                <option value="Florida" class="form-control-lg">Florida</option>
-                <option value="Georgia" class="form-control-lg">Georgia</option>
-                <option value="Hawaii" class="form-control-lg">Hawaii</option>
-                <option value="Idaho" class="form-control-lg">Idaho</option>
-                <option value="Illinois" class="form-control-lg">Illinois</option>
-                <option value="Indiana" class="form-control-lg">Indiana</option>
-                <option value="Iowa" class="form-control-lg">Iowa</option>
-                <option value="Kansas" class="form-control-lg">Kansas</option>
-                <option value="Kentucky" class="form-control-lg">Kentucky</option>
-                <option value="Louisiana" class="form-control-lg">Louisiana</option>
-                <option value="Maine" class="form-control-lg">Maine</option>
-                <option value="Maryland" class="form-control-lg">Maryland</option>
-                <option value="Massachusetts" class="form-control-lg">Massachusetts</option>
-                <option value="Michigan" class="form-control-lg">Michigan</option>
-                <option value="Minnesota" class="form-control-lg">Minnesota</option>
-                <option value="Mississippi" class="form-control-lg">Mississippi</option>
-                <option value="Missouri" class="form-control-lg">Missouri</option>
-                <option value="Montana" class="form-control-lg">Montana</option>
-                <option value="Nebraska" class="form-control-lg">Nebraska</option>
-                <option value="Nevada" class="form-control-lg">Nevada</option>
-                <option value="New Hampshire" class="form-control-lg">New Hampshire</option>
-                <option value="New Jersey" class="form-control-lg">New Jersey</option>
-                <option value="New Mexico" class="form-control-lg">New Mexico</option>
-                <option value="New York" class="form-control-lg">New York</option>
-                <option value="North Carolina" class="form-control-lg">North Carolina</option>
-                <option value="North Dakota" class="form-control-lg">North Dakota</option>
-                <option value="Ohio" class="form-control-lg">Ohio</option>
-                <option value="Oklahoma" class="form-control-lg">Oklahoma</option>
-                <option value="Oregon" class="form-control-lg">Oregon</option>
-                <option value="Pennsylvania" class="form-control-lg">Pennsylvania</option>
-                <option value="Rhode Island" class="form-control-lg">Rhode Island</option>
-                <option value="South Carolina" class="form-control-lg">South Carolina</option>
-                <option value="South Dakota" class="form-control-lg">South Dakota</option>
-                <option value="Tennessee" class="form-control-lg">Tennessee</option>
-                <option value="Texas" class="form-control-lg">Texas</option>
-                <option value="Utah" class="form-control-lg">Utah</option>
-                <option value="Vermont" class="form-control-lg">Vermont</option>
-                <option value="Virginia" class="form-control-lg">Virginia</option>
-                <option value="Washington" class="form-control-lg">Washington</option>
-                <option value="West Virginia" class="form-control-lg">West Virginia</option>
-                <option value="Wisconsin" class="form-control-lg">Wisconsin</option>
-                <option value="Wyoming" class="form-control-lg">Wyoming</option>
-            </select>
-            <input type="number" min="0" class="form-control mt-5 mb-5 me-4 ms-4 form-group-lg" placeholder="Zip Code" style="width:45%;" aria-label="Zip Code">
-        </div>
 
-        <div>
-            <button class="btn btn-primary mt-3 mb-4 me-4 ms-4" type="submit" style="float: right;" onclick="add_event()">Submit</button>
-        </div>
     </div>
     </div>
 {% endblock %}
@@ -134,5 +71,86 @@
         })
         .catch(error => console.error("Error:", error));
     }
+
+    function renderForm() {
+        const container = document.createElement('div');
+
+        const addLocationHeader = document.createElement('h2');
+        addLocationHeader.classList.add('m-4');
+        addLocationHeader.textContent = 'Add a Location';
+        container.appendChild(addLocationHeader);
+
+        const locationInput = createInput('text', 'Name of Location', 'Location', '92%');
+        container.appendChild(locationInput);
+
+        const addressInput = createInput('text', 'Street Address', 'Address', '92%');
+        container.appendChild(addressInput);
+
+        const cityNameInput = createInput('text', 'City Name', 'City Name', '67%');
+        container.appendChild(cityNameInput);
+
+        const stateSelect = document.createElement('select');
+        stateSelect.classList.add('form-select', 'mt-5', 'mb-5', 'me-4', 'ms-4', 'form-control-lg');
+        stateSelect.style.width = '45%';
+        stateSelect.setAttribute('id', 'state');
+        stateSelect.setAttribute('aria-label', 'state');
+
+        const defaultOption = document.createElement('option');
+        defaultOption.setAttribute('disabled', true);
+        defaultOption.setAttribute('selected', true);
+        defaultOption.textContent = 'Select State';
+        stateSelect.appendChild(defaultOption);
+
+        const states = [
+            "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
+            "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
+            "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+            "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico",
+            "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania",
+            "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
+            "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+        ];
+
+        states.forEach(stateName => {
+            const option = document.createElement('option');
+            option.setAttribute('value', stateName);
+            option.classList.add('form-control-lg');
+            option.textContent = stateName;
+            stateSelect.appendChild(option);
+        });
+
+        container.appendChild(stateSelect);
+
+        const zipCodeInput = createInput('number', 'Zip Code', 'Zip Code', '45%');
+        container.appendChild(zipCodeInput);
+
+        const submitButton = document.createElement('button');
+        submitButton.classList.add('btn', 'btn-primary', 'mt-3', 'mb-4', 'me-4', 'ms-4');
+        submitButton.setAttribute('type', 'submit');
+        submitButton.setAttribute('style', 'float: right;');
+        submitButton.textContent = 'Submit';
+        submitButton.onclick = add_event;
+        container.appendChild(submitButton);
+
+        document.getElementById("new-location-form").append(container)
+    }
+
+    function createInput(type, placeholder, ariaLabel, width) {
+        const input = document.createElement('input');
+        input.setAttribute('type', type);
+        input.setAttribute('placeholder', placeholder);
+        input.setAttribute('aria-label', ariaLabel);
+        input.classList.add('form-control', 'mt-5', 'mb-5', 'me-4', 'ms-4', 'form-group-lg');
+        input.style.width = width;
+        return input;
+    }
+
+    function add_event() {
+
+    }
+
+// Call the function to render the form
+renderForm();
+
     </script>
 {% endblock %}
