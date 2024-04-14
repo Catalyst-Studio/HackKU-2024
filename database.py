@@ -26,6 +26,22 @@ base.metadata.create_all(engine)
 
 
 def store_event(user: User, location: str, hours: int, description: str, date: str, time: str, affiliation: str = None):
+    """
+        This function stores an event in the database.
+
+        Args:
+            user (User): The user who is creating the event.
+            location (str): The location of the event.
+            hours (int): The number of hours the event will last.
+            description (str): A description of the event.
+            date (str): The date of the event.
+            time (str): The time of the event.
+            affiliation (str, optional): The affiliation of the event, such as a company or organization. Defaults to None.
+
+        Returns:
+            None
+
+        """
     data = {
         "location": location,
         "hours": hours,
@@ -41,7 +57,22 @@ def get_events(user: User):
     return events[str(user.id)].find()
 
 
-def store_location(name: str, address: str, city: str, state: str, zipcode: int):
+def store_location(user: User, name: str, address: str, city: str, state: str, zipcode: int):
+    """
+        This function stores a location in the database.
+
+        Args:
+            user (User): The user who is creating the location.
+            name (str): The name of the location.
+            address (str): The address of the location.
+            city (str): The city of the location.
+            state (str): The state of the location.
+            zipcode (int): The zipcode of the location.
+
+        Returns:
+            None
+
+        """
     data = {
         "name": name,
         "address": address,
@@ -51,16 +82,30 @@ def store_location(name: str, address: str, city: str, state: str, zipcode: int)
     }
    # print("attempting to store location")
    # print(data)
-    collection = locations["locations"]
+    collection = locations[str(user.id)]
     collection.insert_one(data)
 
 
-def get_locations():
+def get_locations(user: User):
     collection = locations["locations"]
-    return collection.find()
+    return collection[str(user.id)].find()
 
 
 def store_future_event(user: User, location: str, date: str, time: str, affiliation: str = None):
+    """
+        This function stores a future event in the database.
+
+        Args:
+            user (User): The user who is creating the future event.
+            location (str): The location of the future event.
+            date (str): The date of the future event.
+            time (str): The time of the future event.
+            affiliation (str, optional): The affiliation of the future event, such as a company or organization. Defaults to None.
+
+        Returns:
+            None
+
+        """
     data = {
         "location": location,
         "datetime": date + " " + time,
