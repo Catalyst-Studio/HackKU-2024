@@ -58,7 +58,7 @@ Contributors names and contact info
 
 ## License
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+This project is licensed under the CC0 1.0 Universal License - see the LICENSE.md file for details
 
 ## Acknowledgments
 
@@ -75,12 +75,14 @@ Want to run your own instance of this website?
 
 First, run these commands:
 
-```git clone https://github.com/Catalyst-Studio/HackKU-2024.git```
-
-```cd /HackKU-2024```
-
-```python -m pip install -r requirements.txt```
+```
+git clone https://github.com/Catalyst-Studio/HackKU-2024.git
+cd /HackKU-2024
+python -m pip install -r requirements.txt
+```
 
 Then, to run the app:
 
-```python -m uvicorm main:app```
+```
+python -m uvicorm main:app
+```
