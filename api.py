@@ -2,8 +2,6 @@ from fastapi import Depends
 from fastapi.routing import APIRouter
 import database
 from users import manager
-import datetime
-import uuid
 import api_util
 from models import User
 
@@ -42,13 +40,13 @@ async def dashboard_getAll(user=Depends(manager)):
 
 # create an event
 @api_router.post("/submit-event")
-async def input_create(location, hours, description, date: str, time: str, affiliation=None, user=Depends(manager)):
+async def input_create(location, hours: int, description, date: str, time: str, affiliation=None, user=Depends(manager)):
     """
     This function creates a new event for the given user.
 
     Args:
         location (str): the location of the event
-        hours (float): the number of hours worked at the event
+        hours (int): the number of hours worked at the event
         description (str): a description of the event
         date (str): the date of the event in the format "MM/DD/YYYY"
         time (str): the time of the event in the format "HH:MM AM/PM"
