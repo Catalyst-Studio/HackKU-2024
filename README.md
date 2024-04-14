@@ -68,3 +68,19 @@ Inspiration, code snippets, etc.
 * [dbader](https://github.com/dbader/readme-template)
 * [zenorocha](https://gist.github.com/zenorocha/4526327)
 * [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+
+## Cloning from Source
+
+Want to run your own instance of this website?
+
+First, run these commands:
+
+```git clone https://github.com/Catalyst-Studio/HackKU-2024.git```
+
+```cd /HackKU-2024```
+
+```python -m pip install -r requirements.txt```
+
+Then, to run the app:
+
+```python -m uvicorm main:app```
