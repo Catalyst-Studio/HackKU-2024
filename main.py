@@ -1,11 +1,12 @@
 from urllib import request
 
-from fastapi import FastAPI, Request, Form
+from fastapi import FastAPI, Request, Form, Depends
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi_login import LoginManager
 from starlette.responses import RedirectResponse
 
+import database
 import users
 import api
 
@@ -33,6 +34,18 @@ async def input(request: Request):
 @app.get("/home")
 async def home(request: Request):
     return templates.TemplateResponse("home.html", {"request": request})
+
+
+@app.get("/add-event")
+async def add_event(request: Request):
+    return templates.TemplateResponse("add-event.html", {"request": request})
+
+
+@app.get("/view-events")
+async def view_events(request: Request, user=Depends(users.manager)):
+    events = database.get_events(user)
+    return templates.TemplateResponse("view-events.html", {"request": request, "events": events})
+
 
 
 @app.get("/signup")

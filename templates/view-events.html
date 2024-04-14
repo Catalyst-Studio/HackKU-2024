@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card m-5">
+    <h2 class="card-title m-4">Your Events</h2>
+    <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Location</th>
+              <th scope="col">Hours</th>
+              <th scope="col">Description</th>
+              <th scope="col">affiliation</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for event in events %}
+                <tr>
+                    <td>{{ event.location }}</td>
+                    <td>{{ event.hours }}</td>
+                    <td>{{ event.description }}</td>
+                    <td>{{ event.affiliation }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+

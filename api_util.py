@@ -80,3 +80,6 @@ def affiliation_leaderboard(dictlist: list):
     sorted_hours = dict(sorted(addendlist.items(), key=lambda item: item[1]))
     sorted_hours = list(sorted_hours.items())
     return [sorted_hours[0], sorted_hours[1], sorted_hours[2]]
+
+
+

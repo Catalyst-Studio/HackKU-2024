@@ -44,11 +44,23 @@ async def dashboard_getAll(user=Depends(manager)):
     }
 
 
-@api_router.get("/input")
-async def input_create(location, hours, description, affiliation=None, user=Depends(manager)):
-    database.store_event(user, location, hours, description, affiliation)
+# create an event
+@api_router.post("/submit-event")
+async def input_create(location, hours, description, date: str, time: str, affiliation=None, user=Depends(manager)):
+    try:
+        database.store_event(user, location, hours, description, date, time, affiliation)
+        return {
+            "success": True,
+            "redirect_url": "/view-events"
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "error": str(e)
+        }
 
-@api_router.get("/get_all_events")
+
+@api_router.get("/get-all-events")
 async def get_all_events(user=Depends(manager)):
     """
         This function returns all events for the given user.
@@ -66,3 +78,27 @@ async def get_all_events(user=Depends(manager)):
         event.pop("_id")
         event_store.append(event)
     return event_store
+
+
+@api_router.get("/get-all-locations")
+async def get_all_locations():
+    locations = database.get_locations()
+    location_store = []
+    for location in locations:
+        location = dict(location)
+        location.pop("_id")
+        location_store.append(location)
+    return location_store
+
+
+@api_router.get("/add-location")
+async def add_loc(name: str, address: str, city: str, state: str, zipcode: int):
+    database.store_location(name, address, city, state, zipcode)
+    locations = database.get_locations()
+    location_store = []
+    # remove IDs from each
+    for location in locations:
+        location = dict(location)
+        location.pop("_id")
+        location_store.append(location)
+    return location_store
