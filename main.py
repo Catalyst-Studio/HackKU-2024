@@ -63,7 +63,7 @@ async def signup_user(request: Request, first_name=Form(), last_name=Form(), ema
     """
     users.make_user(first_name, last_name, email, password)
     token = users.manager.create_access_token(data=dict(sub=email))
-    response = RedirectResponse("/home", status_code=307)
+    response = RedirectResponse("/home", status_code=302)
     users.manager.set_cookie(response, token)
     return response
 
@@ -90,6 +90,6 @@ async def login_user(request: Request, email=Form(), password=Form()):
         """
     if users.verify_user(email, password):
         token = users.manager.create_access_token(data=dict(sub=email))
-        response = RedirectResponse("/home", status_code=307)
+        response = RedirectResponse("/home", status_code=302)
         users.manager.set_cookie(response, token)
         return response
