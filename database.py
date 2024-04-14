@@ -80,8 +80,6 @@ def store_location(user: User, name: str, address: str, city: str, state: str, z
         "state": state,
         "zipcode": zipcode
     }
-   # print("attempting to store location")
-   # print(data)
     collection = locations[str(user.id)]
     collection.insert_one(data)
 
