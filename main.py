@@ -23,7 +23,7 @@ templates = Jinja2Templates("templates")
 # Rendering Pages
 @app.get("/")
 async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return RedirectResponse("/login")
 
 
 @app.get("/home")
