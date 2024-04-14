@@ -43,6 +43,21 @@ async def dashboard_getAll(user=Depends(manager)):
 # create an event
 @api_router.post("/submit-event")
 async def input_create(location, hours, description, date: str, time: str, affiliation=None, user=Depends(manager)):
+    """
+    This function creates a new event for the given user.
+
+    Args:
+        location (str): the location of the event
+        hours (float): the number of hours worked at the event
+        description (str): a description of the event
+        date (str): the date of the event in the format "MM/DD/YYYY"
+        time (str): the time of the event in the format "HH:MM AM/PM"
+        affiliation (str, optional): the affiliation of the user at the event (e.g., "work", "school", etc.). Defaults to None.
+        user (User): the user for which to create the event
+
+    Returns:
+        dict: a dictionary containing a "success" field indicating whether the event was created successfully, and an "error" field containing an error message if the event could not be created
+    """
     try:
         database.store_event(user, location, hours, description, date, time, affiliation)
         return {
@@ -77,8 +92,17 @@ async def get_all_events(user=Depends(manager)):
 
 
 @api_router.get("/get-all-locations")
-async def get_all_locations():
-    locations = database.get_locations()
+async def get_all_locations(user=Depends(manager)):
+    """
+    This function returns all locations in the system.
+
+    Args:
+        user (User): the user for which to retrieve the locations
+
+    Returns:
+        list: a list of dictionaries containing the location information
+    """
+    locations = database.get_locations(user)
     location_store = []
     for location in locations:
         location = dict(location)
@@ -89,6 +113,19 @@ async def get_all_locations():
 
 @api_router.get("/add-location")
 async def add_loc(name: str, address: str, city: str, state: str, zipcode: int):
+    """
+        This function adds a new location to the system.
+
+        Args:
+            name (str): the name of the location
+            address (str): the address of the location
+            city (str): the city of the location
+            state (str): the state of the location
+            zipcode (int): the zipcode of the location
+
+        Returns:
+            list: a list of dictionaries containing the locations in the system
+        """
     database.store_location(name, address, city, state, zipcode)
     locations = database.get_locations()
     location_store = []
