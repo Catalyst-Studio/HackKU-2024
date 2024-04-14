@@ -28,12 +28,10 @@ async def dashboard_getAll(user=Depends(manager)):
         event_store.append(event)
     total_hours = api_util.total_hours_sort(event_store)
     recent_events = api_util.most_recent_events(event_store)
-    soon_events = api_util.sorted_future_events(event_store)
     affiliate_leaderboard = api_util.affiliation_leaderboard(event_store)
     return {
         "total_hours": total_hours,
         "recent_events": recent_events,
-        "soon_events": soon_events,
         "affiliate_leaderboard": affiliate_leaderboard
     }
 
