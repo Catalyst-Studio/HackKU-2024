@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card m-5" style="width: 26rem; height: auto;">
+    <div>
+        <h2 class="m-4">Export an Event</h2>
+        <label class="form-label form-control-lg ms-4 me-4 mt-4 mb-2">Items Included in Export:</label>
+        <div class="form-check ms-5 mb-2">
+            <input class="form-check-input" type="checkbox" value="location" id="location" checked>
+            <label class="form-check-label" for="location">
+                Location
+            </label>
+        </div>
+        <div class="form-check ms-5 mb-2">
+            <input class="form-check-input" type="checkbox" value="hours" id="hours" checked>
+            <label class="form-check-label" for="hours">
+                Hours
+            </label>
+        </div>
+        <div class="form-check ms-5 mb-2">
+            <input class="form-check-input" type="checkbox" value="description" id="description" checked>
+            <label class="form-check-label" for="description">
+                Description
+            </label>
+        </div>
+        <div class="form-check ms-5 mb-4">
+            <input class="form-check-input" type="checkbox" value="affiliation" id="affiliation" checked>
+            <label class="form-check-label" for="affiliation">
+                Affiliation
+            </label>
+        </div>
+        <div>
+            <select class="form-select ms-4 me-4 mb-4 form-control-lg" id="sortmethod" style="width: 23rem;" aria-label="Sorting Method">
+                <option selected disabled class="form-control-lg">Select Sorting Method</option>
+                <option value="location1" class="form-control-lg">Number of Hours</option>
+                <option value="location2" class="form-control-lg">Date (Most Recent)</option>
+            </select>
+        </div>
+        <div>
+            <select class="form-select ms-4 me-4 mb-4 form-control-lg" id="pdffont" style="width: 23rem;" aria-label="PDF Font">
+                <option selected disabled class="form-control-lg">Select PDF Font</option>
+                <option value="location1" class="form-control-lg">Times New Roman</option>
+                <option value="location2" class="form-control-lg">Sans Serif</option>
+                <option value="location2" class="form-control-lg">Arial</option>
+                <option value="location2" class="form-control-lg">Helvetica</option>
+            </select>
+        </div>
+        <div>
+            <button class="btn btn-primary mt-3 mb-4 me-4 ms-4" type="submit" style="float: right;">Submit</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

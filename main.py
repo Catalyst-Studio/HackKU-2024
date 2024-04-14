@@ -47,6 +47,10 @@ async def view_events(request: Request, user=Depends(users.manager)):
     return templates.TemplateResponse("view-events.html", {"request": request, "events": events})
 
 
+@app.get("/export-event")
+async def export_event(request: Request):
+    return templates.TemplateResponse("export-event.html", {"request": request})
+
 
 @app.get("/signup")
 async def signup(request: Request):

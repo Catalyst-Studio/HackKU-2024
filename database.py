@@ -29,7 +29,7 @@ def store_event(user: User, location: str, hours: int, description: str, date: s
     data = {
         "location": location,
         "hours": hours,
-        "datetime": date + " " + time,
+        "datetime": date + " " + time,  # format is found in config.py
         "description": description,
         "affiliation": affiliation
     }
@@ -49,6 +49,8 @@ def store_location(name: str, address: str, city: str, state: str, zipcode: int)
         "state": state,
         "zipcode": zipcode
     }
+   # print("attempting to store location")
+   # print(data)
     collection = locations["locations"]
     collection.insert_one(data)
 
